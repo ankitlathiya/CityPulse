@@ -1,79 +1,180 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# CityPulse - Local Events Explorer
 
-# Getting Started
+A React Native mobile application that helps users discover and explore local events using the Ticketmaster Discovery API. The app features biometric authentication, multilingual support (English/Arabic), and a modern, intuitive user interface.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## 📱 Screenshots
 
-## Step 1: Start the Metro Server
+### App Screenshots
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+![Splash Screen](screenshots/splash.png)
+_Splash screen with app branding_
 
-To start Metro, run the following command from the _root_ of your React Native project:
+![Biometric Login](screenshots/biometric-login.png)
+_Biometric authentication screen_
+
+![Home Screen](screenshots/home.png)
+_Home screen with search functionality_
+
+![Event Details](screenshots/event-details.png)
+_Event details with map preview_
+
+![Favorites](screenshots/favorites.png)
+_Favorites screen with saved events_
+
+![Profile](screenshots/profile.png)
+_User profile with language toggle_
+
+## 📋 Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- **Node.js** (v18 or higher)
+- **React Native CLI** or **Expo CLI**
+- **Android Studio** (for Android development)
+- **Xcode** (for iOS development, macOS only)
+- **Java Development Kit (JDK)** 11 or higher
+- **Android SDK** (for Android development)
+
+## 🚀 Installation & Setup
+
+### 1. Clone the Repository
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+git clone <your-repository-url>
+cd CityPulse
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+### 2. Install Dependencies
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+npm install
 ```
 
-### For iOS
+### 3. iOS Setup (macOS only)
 
 ```bash
-# using npm
+cd ios
+pod install
+cd ..
+```
+
+### 4. Environment Configuration
+
+Create a `.env` file in the root directory and add your Ticketmaster API key:
+
+```env
+TICKETMASTER_API_KEY=your_api_key_here
+```
+
+**Note**: You can get a free API key from [Ticketmaster Developer Portal](https://developer-acct.ticketmaster.com/user/login)
+
+### 5. Run the Application
+
+#### For iOS (macOS only):
+
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+#### For Android:
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+```bash
+npm run android
+```
 
-## Step 3: Modifying your App
+#### Start Metro Bundler:
 
-Now that you have successfully run the app, let's modify it.
+```bash
+npm start
+```
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## 🏗️ Project Structure
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+```
+src/
+├── bridge/           # Business logic and hooks
+│   ├── api.js       # API calls and data fetching
+│   ├── hooks.js     # Custom React hooks
+│   └── storage.js   # Local storage operations
+├── components/       # Reusable UI components
+├── constants/        # App constants
+│   ├── colors.js    # Color definitions
+│   └── strings.js   # Localized strings
+├── localization/     # Internationalization
+│   └── index.js     # Localization logic
+├── navigation/       # Navigation configuration
+│   └── AppNavigator.js
+├── screens/          # App screens
+│   ├── BiometricLoginScreen.js
+│   ├── EventDetailScreen.js
+│   ├── FavoritesScreen.js
+│   ├── HomeScreen.js
+│   ├── ProfileScreen.js
+│   └── SplashScreen.js
+├── services/         # External services
+└── utils/           # Utility functions
+```
 
-## Congratulations! :tada:
+## 🔧 Key Components
 
-You've successfully run and modified your React Native App. :partying_face:
+### Bridge Architecture
 
-### Now what?
+The app uses a bridge pattern to separate business logic from UI components:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+- **`api.js`**: Handles all Ticketmaster API calls
+- **`storage.js`**: Manages AsyncStorage operations for favorites
+- **`hooks.js`**: Custom hooks for favorites and language management
 
-# Troubleshooting
+### Localization System
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- Supports English and Arabic languages
+- Automatic RTL layout switching
+- Centralized string management
 
-# Learn More
+### Biometric Authentication
 
-To learn more about React Native, take a look at the following resources:
+- Automatic detection of available biometric methods
+- Graceful fallback for unsupported devices
+- Secure authentication flow
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 🎯 Assumptions Made
+
+1. **API Key**: The app includes a demo API key for testing. In production, this should be stored securely in environment variables.
+
+2. **Mock Data**: User profile data is mocked for demonstration purposes.
+
+3. **Biometric Support**: The app gracefully handles devices without biometric capabilities.
+
+4. **Network Handling**: Basic error handling for network requests is implemented.
+
+5. **Localization**: Arabic translations are basic and may need refinement for production use.
+
+6. **Device Permissions**: The app assumes necessary permissions for biometrics and location (for maps) are granted.
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+## 📦 Build & Deployment
+
+### Android APK
+
+```bash
+cd android
+./gradlew assembleRelease
+```
+
+### iOS Archive
+
+```bash
+cd ios
+xcodebuild -workspace CityPulse.xcworkspace -scheme CityPulse -configuration Release archive
+```
+
+---
+
+**Note**: This is a demonstration project. For production use, additional security measures, error handling, and testing should be implemented.
