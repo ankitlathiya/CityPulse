@@ -96,7 +96,6 @@ src/
 │   ├── api.js       # API calls and data fetching
 │   ├── hooks.js     # Custom React hooks
 │   └── storage.js   # Local storage operations
-├── components/       # Reusable UI components
 ├── constants/        # App constants
 │   ├── colors.js    # Color definitions
 │   └── strings.js   # Localized strings
@@ -111,8 +110,6 @@ src/
 │   ├── HomeScreen.js
 │   ├── ProfileScreen.js
 │   └── SplashScreen.js
-├── services/         # External services
-└── utils/           # Utility functions
 ```
 
 ## 🔧 Key Components
